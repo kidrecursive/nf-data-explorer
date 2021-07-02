@@ -248,3 +248,10 @@ export const CLUSTER_REDIRECT_HOST =
 export const CLUSTER_NAME_PATTERN_CASSANDRA = '.*';
 export const CLUSTER_NAME_PATTERN_REDIS = '.*';
 export const CLUSTER_NAME_PATTERN_DYNOMITE = '.*';
+
+/**
+ * DataStax Astra DB connection information
+ */
+export const ASTRA_SECURE_BUNDLE_NAME = '';
+export const ASTRA_CLIENT_ID = '';
+export const ASTRA_CLIENT_SECRET = '';

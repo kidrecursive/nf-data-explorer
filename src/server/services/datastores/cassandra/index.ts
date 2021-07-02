@@ -8,7 +8,13 @@ import BaseDatastoreService from '../base/BaseDatastoreService';
 import { fetchSize } from './lib/cassandra-config';
 import { ICassandraClientOptionsProvider } from './lib/providers/client/ICassandraClientOptionsProvider';
 
-const { CASSANDRA_PORT, CLUSTER_NAME_PATTERN_CASSANDRA } = getConfig();
+const {
+  CASSANDRA_PORT,
+  CLUSTER_NAME_PATTERN_CASSANDRA,
+  ASTRA_CLIENT_ID,
+  ASTRA_CLIENT_SECRET,
+  ASTRA_SECURE_BUNDLE_NAME,
+} = getConfig();
 
 const logger = setupLogger(module);
 
@@ -44,22 +50,36 @@ export default class CassandraDatastoreService extends BaseDatastoreService
       const { clientOptionsProvider: provider } = this;
       const sslOptions = await provider.getSslOptions(params);
 
-      const client = new Client({
-        contactPoints,
-        localDataCenter: provider.getLocalDatacenter(region),
-        protocolOptions: {
-          port: CASSANDRA_PORT,
-        },
-        authProvider: provider.getAuthProvider(undefined, undefined),
-        sslOptions,
-        policies: provider.getPolicies(region),
-        queryOptions: {
-          fetchSize: fetchSize || 100,
-          prepare: true,
-          captureStackTrace: true,
-          consistency: types.consistencies.localOne,
-        },
-      });
+      let client = null;
+      if (ASTRA_CLIENT_ID) {
+        client = new Client({
+          cloud: {
+            secureConnectBundle: `/apps/nf-data-explorer/data/${ASTRA_SECURE_BUNDLE_NAME}`,
+          },
+          credentials: {
+            username: ASTRA_CLIENT_ID,
+            password: ASTRA_CLIENT_SECRET,
+          },
+        });
+      } else {
+        client = new Client({
+          contactPoints,
+          localDataCenter: provider.getLocalDatacenter(region),
+          protocolOptions: {
+            port: CASSANDRA_PORT,
+          },
+          authProvider: provider.getAuthProvider(undefined, undefined),
+          sslOptions,
+          policies: provider.getPolicies(region),
+          queryOptions: {
+            fetchSize: fetchSize || 100,
+            prepare: true,
+            captureStackTrace: true,
+            consistency: types.consistencies.localOne,
+          },
+        });
+      }
+
       client.on('log', (level, _module, message) => {
         if (level === 'verbose') {
           return;

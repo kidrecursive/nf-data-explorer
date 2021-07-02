@@ -5,7 +5,9 @@ import { Client } from 'cassandra-driver';
  * @return True if the connection is to a CQL 3.x system.
  */
 export function isVersion3(client: Client): boolean {
-  return getVersion(client).startsWith('3.');
+  return (
+    getVersion(client).startsWith('3.') || getVersion(client).startsWith('4.')
+  );
 }
 
 export function getVersion(client: Client): string {
