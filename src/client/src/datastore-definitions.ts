@@ -32,5 +32,11 @@ export function getDatastores() {
       imagePath: '/images/icon_dynomite.png',
       routeName: Routes.DynomiteClusters,
     },
+    astradb: {
+      name: 'Astra DB',
+      description: i18n.t('datastores.astradb.description'),
+      imagePath: '/images/icon_astradb.png',
+      routeName: Routes.CassandraClusters,
+    },
   } as { [datastoreType: string]: DatastoreDef };
 }

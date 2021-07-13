@@ -155,6 +155,24 @@ yarn docker:build
 
 Here are a sampling of some of the features available in the Netflix Data Explorer.
 
+#### DataStax Astra Connectivity
+
+You can connect to a DataStax Astra DB cluster by adding your secure connect bundle to the `data` folder in the project and then add a file named `astra.ts` to `/src/server/config/overrides` with the following contents:
+
+```javascript
+export const ASTRA_SECURE_BUNDLE_NAME = 'bundle.zip';
+export const ASTRA_CLIENT_ID = 'UeObUi...';
+export const ASTRA_CLIENT_SECRET = 'JMjIA0KZ...';
+```
+
+To activate the override, change `.env` in the project root to contain:
+
+```sh
+DATA_EXPLORER_CONFIG_NAME=astra
+```
+
+After that, you can run `yarn docker:demo` to connect to Astra DB (you need to rebuild the image if it has already been built to capture your changes).
+
 #### Multi-Cluster Access
 
 Multi-cluster access provides easy access to all of the clusters in your environment. The cluster selector in the top nav allows you to switch to any of your discovered clusters quickly.

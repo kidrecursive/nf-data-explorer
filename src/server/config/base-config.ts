@@ -15,7 +15,7 @@ export const APP_PORT = 80;
  * from this list. This will avoid setting up REST routes and displaying UI components for that
  * datastore type.
  */
-export const SUPPORTED_DATASTORE_TYPES = ['dynomite', 'cassandra'];
+export const SUPPORTED_DATASTORE_TYPES = ['dynomite', 'cassandra', 'astradb'];
 
 //
 // Define the list of AWS regions and environments (accounts) this application is deployed in.
@@ -248,3 +248,10 @@ export const CLUSTER_REDIRECT_HOST =
 export const CLUSTER_NAME_PATTERN_CASSANDRA = '.*';
 export const CLUSTER_NAME_PATTERN_REDIS = '.*';
 export const CLUSTER_NAME_PATTERN_DYNOMITE = '.*';
+
+/**
+ * DataStax Astra DB connection information
+ */
+export const ASTRA_SECURE_BUNDLE_NAME = '';
+export const ASTRA_CLIENT_ID = '';
+export const ASTRA_CLIENT_SECRET = '';

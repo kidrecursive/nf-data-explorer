@@ -24,6 +24,9 @@ export default {
       description:
         'Low-latency, in-memory datastore with support for multi-datacenter replication and high availability.',
     },
+    astradb: {
+      description: 'A multi-cloud DBaaS built on Apache Cassandra'
+    }
   },
   cassandra: {
     keyspaces: {
