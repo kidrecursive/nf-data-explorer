@@ -48,7 +48,8 @@ body .el-button {
 
 .el-tabs__content {
   flex: 1;
-  overflow: scroll !important;
+  /*overflow: scroll !important; */
+  overflow: auto !important;
 }
 
 .bordered {

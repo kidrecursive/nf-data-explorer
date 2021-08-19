@@ -2,6 +2,9 @@ export enum Routes {
   Datastores = 'Datastores',
   Admin = 'Admin',
 
+  // connetion manager
+  ConnectionManager = 'ConnectionManager',
+
   // cassandra
   CassandraClusters = 'CassandraClusters',
   CassandraCluster = 'CassandraCluster',

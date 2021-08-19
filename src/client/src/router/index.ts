@@ -15,9 +15,11 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: Routes.Datastores,
+      name: Routes.ConnectionManager,
       component: () =>
-        import(/* webpackChunkName: 'common' */ '@/views/DatastoresView.vue'),
+        import(
+          /* webpackChunkName: 'common' */ '@/views/ConnectionManagerView.vue'
+        ),
     },
     cassandraRoutes,
     dynomiteRoutes,
