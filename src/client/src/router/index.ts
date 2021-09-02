@@ -36,7 +36,7 @@ router.beforeEach((to, _from, next) => {
       next({ name: DEFAULT_ROUTE_NAME });
     } else {
       document.title = [
-        'Data Explorer',
+        'Astrolabe',
         ...buildBreadcrumbsFromRoute(to).map((crumb) => crumb.label),
       ].join(' | ');
       next();

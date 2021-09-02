@@ -2,14 +2,14 @@
   <div class="layout horizontal center" :class="$style.navContainer">
     <el-menu
       mode="horizontal"
-      background-color="#39546a"
-      text-color="#F8F8F8"
-      active-text-color="#F8F8F8"
+      background-color="#20293a"
+      text-color="#FFFFFF"
+      active-text-color="#FFFFFF"
       unique-opened
       router
     >
       <el-menu-item index="/">
-        <h1>Data Explorer</h1>
+        <h1>Astrolabe</h1>
       </el-menu-item>
     </el-menu>
 
@@ -21,9 +21,9 @@
     <el-menu
       mode="horizontal"
       class="flex spacer__left"
-      background-color="#39546a"
-      text-color="#F8F8F8"
-      active-text-color="#F8F8F8"
+      background-color="#20293a"
+      text-color="#FFFFFF"
+      active-text-color="#FFFFFF"
       unique-opened
       router
     >
@@ -139,7 +139,7 @@ export default Vue.extend({
 </script>
 <style module>
 .navContainer {
-  background-color: #39546a;
+  background-color: #20293a;
 }
 
 .navContainer :global .el-menu {
