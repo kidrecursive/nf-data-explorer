@@ -15,9 +15,11 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: Routes.Datastores,
+      name: Routes.ConnectionManager,
       component: () =>
-        import(/* webpackChunkName: 'common' */ '@/views/DatastoresView.vue'),
+        import(
+          /* webpackChunkName: 'common' */ '@/views/ConnectionManagerView.vue'
+        ),
     },
     cassandraRoutes,
     dynomiteRoutes,
@@ -34,7 +36,7 @@ router.beforeEach((to, _from, next) => {
       next({ name: DEFAULT_ROUTE_NAME });
     } else {
       document.title = [
-        'Data Explorer',
+        'Astrolabe',
         ...buildBreadcrumbsFromRoute(to).map((crumb) => crumb.label),
       ].join(' | ');
       next();

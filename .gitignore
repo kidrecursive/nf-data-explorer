@@ -2,7 +2,11 @@
 node_modules
 
 venv
+<<<<<<< HEAD
 data/bundle.zip
+=======
+data/*
+>>>>>>> a62eb112cf4573e7cd90a0d40d14122bbb0ef0f1
 
 # local env files
 .env.local
