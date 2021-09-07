@@ -8,7 +8,7 @@
 
 export const APP_NAME = 'nf-data-explorer-2';
 
-export const APP_PORT = 80;
+export const APP_PORT = 3000;
 
 /**
  * The list of supported datastores. Support for a datastore can be removed by simply removing it
