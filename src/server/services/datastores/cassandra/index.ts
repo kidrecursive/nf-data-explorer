@@ -54,7 +54,8 @@ export default class CassandraDatastoreService extends BaseDatastoreService
       if (ASTRA_CLIENT_ID) {
         client = new Client({
           cloud: {
-            secureConnectBundle: `/apps/nf-data-explorer/data/${ASTRA_SECURE_BUNDLE_NAME}`,
+            // secureConnectBundle: `/apps/nf-data-explorer/data/${ASTRA_SECURE_BUNDLE_NAME}`,
+            secureConnectBundle: `./data/${ASTRA_SECURE_BUNDLE_NAME}`,
           },
           credentials: {
             username: ASTRA_CLIENT_ID,
