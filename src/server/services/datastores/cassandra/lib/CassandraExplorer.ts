@@ -59,6 +59,7 @@ export default class CassandraExplorer implements IExplorer {
   public async getDatacenters(): Promise<IDatacenter[]> {
     logger.info('fetching cluster regions');
     await this.client.connect();
+    console.log(this.client);
     const datacenters = this.client.metadata.datacenters;
     return Object.keys(datacenters)
       .sort()

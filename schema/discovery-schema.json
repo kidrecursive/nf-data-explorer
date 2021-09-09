@@ -149,8 +149,8 @@
             "title": "The cluster environment",
             "description": "Describes the type of environment the cluster is deployed in.",
             "default": "",
-            "enum": ["prod", "test"],
-            "examples": ["prod", "test"]
+            "enum": ["prod", "test", "local"],
+            "examples": ["prod", "test", "local"]
           },
           "region": {
             "$id": "#/items/anyOf/0/properties/region",

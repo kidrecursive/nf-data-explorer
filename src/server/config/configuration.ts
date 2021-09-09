@@ -88,3 +88,10 @@ export function getConfig(): typeof baseConfig {
   }
   return JSON.parse(JSON.stringify(config)) as typeof baseConfig;
 }
+
+export function setAstraConfiguration(token: string, bundleName: string) {
+  if (config) {
+    config.ASTRA_APPLICATION_TOKEN = token;
+    config.ASTRA_SECURE_BUNDLE_NAME = bundleName;
+  }
+}
