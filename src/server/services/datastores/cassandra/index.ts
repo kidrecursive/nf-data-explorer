@@ -3,18 +3,11 @@ import setupLogger from '@/config/logger';
 import { IDatastoreService } from '@/services/datastores/base/datastore';
 import CassandraExplorer from '@/services/datastores/cassandra/lib/CassandraExplorer';
 import { ICassandraConnectParams } from '@/services/datastores/cassandra/typings/cassandra';
-import { Client, types } from 'cassandra-driver';
+import { Client } from 'cassandra-driver';
 import BaseDatastoreService from '../base/BaseDatastoreService';
-import { fetchSize } from './lib/cassandra-config';
 import { ICassandraClientOptionsProvider } from './lib/providers/client/ICassandraClientOptionsProvider';
 
-const {
-  CASSANDRA_PORT,
-  CLUSTER_NAME_PATTERN_CASSANDRA,
-  ASTRA_CLIENT_ID,
-  ASTRA_CLIENT_SECRET,
-  ASTRA_SECURE_BUNDLE_NAME,
-} = getConfig();
+const { CLUSTER_NAME_PATTERN_CASSANDRA } = getConfig();
 
 const logger = setupLogger(module);
 
@@ -47,39 +40,17 @@ export default class CassandraDatastoreService extends BaseDatastoreService
       });
       logger.info(`setting up new connection to ${params.clusterDescription}`);
 
-      const { clientOptionsProvider: provider } = this;
-      const sslOptions = await provider.getSslOptions(params);
-
-      let client = null;
-      if (ASTRA_CLIENT_ID) {
-        client = new Client({
-          cloud: {
-            // secureConnectBundle: `/apps/nf-data-explorer/data/${ASTRA_SECURE_BUNDLE_NAME}`,
-            secureConnectBundle: `./data/${ASTRA_SECURE_BUNDLE_NAME}`,
-          },
-          credentials: {
-            username: ASTRA_CLIENT_ID,
-            password: ASTRA_CLIENT_SECRET,
-          },
-        });
-      } else {
-        client = new Client({
-          contactPoints,
-          localDataCenter: provider.getLocalDatacenter(region),
-          protocolOptions: {
-            port: CASSANDRA_PORT,
-          },
-          authProvider: provider.getAuthProvider(undefined, undefined),
-          sslOptions,
-          policies: provider.getPolicies(region),
-          queryOptions: {
-            fetchSize: fetchSize || 100,
-            prepare: true,
-            captureStackTrace: true,
-            consistency: types.consistencies.localOne,
-          },
-        });
-      }
+      const { ASTRA_APPLICATION_TOKEN, ASTRA_SECURE_BUNDLE_NAME } = getConfig();
+      logger.info(ASTRA_APPLICATION_TOKEN, ASTRA_SECURE_BUNDLE_NAME);
+      const client = new Client({
+        cloud: {
+          secureConnectBundle: `./uploads/${ASTRA_SECURE_BUNDLE_NAME}`,
+        },
+        credentials: {
+          username: 'token',
+          password: ASTRA_APPLICATION_TOKEN,
+        },
+      });
 
       client.on('log', (level, _module, message) => {
         if (level === 'verbose') {
@@ -114,7 +85,9 @@ export default class CassandraDatastoreService extends BaseDatastoreService
 
       try {
         await client.connect();
+        logger.info(client.toString());
       } catch (err) {
+        logger.error(err);
         return reject(err);
       }
 
